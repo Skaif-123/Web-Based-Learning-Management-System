@@ -8,13 +8,15 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInFormControls, signUpFormControls } from "@/config";
+import { AuthContext } from "@/context";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoBookSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 export const AuthPage = () => {
   const [activeTab, setActiveTab] = useState("signin");
+ const {signInFormData,setSignInFormData,signUpFormData,setSignUpFormData}=useContext(AuthContext)
 
   const handleTabChange = (value) => {
     setActiveTab(value);
