@@ -12,6 +12,7 @@ import { Textarea } from "../ui/textarea";
 const FormControls = ({ formControls = [], formData, setFormData }) => {
   const renderByComponentByType = (getControlItem) => {
     let element = null;
+    const value = formData[getControlItem.name] || "";
     switch (getControlItem.componentType) {
       case "input":
         element = (
@@ -20,23 +21,28 @@ const FormControls = ({ formControls = [], formData, setFormData }) => {
             name={getControlItem.name}
             placeholder={getControlItem.placeholder}
             type={getControlItem.type}
+            value={value}
+            onChange={(e) => setFormData({ ...formData, [getControlItem.name]: e.target.value })}
           />
         );
 
         break;
       case "select":
         element = (
-          <Select>
+          <Select
+          onValueChange={(value)=> setFormData({...formData,[getControlItem.name]:value})}
+          value={value}
+          >
             <SelectTrigger className="w-full">
               <SelectValue placeholder={getControlItem.label} />
             </SelectTrigger>
             <SelectContent>
               {getControlItem.options && getControlItem.options.length > 0
                 ? getControlItem.options.map((optionItem) => (
-                    <SelectItem key={optionItem.id} value={optionItem.id}>
-                      {optionItem.label}
-                    </SelectItem>
-                  ))
+                  <SelectItem key={optionItem.id} value={optionItem.id}>
+                    {optionItem.label}
+                  </SelectItem>
+                ))
                 : null}
             </SelectContent>
           </Select>
@@ -49,6 +55,8 @@ const FormControls = ({ formControls = [], formData, setFormData }) => {
             id={getControlItem.name}
             name={getControlItem.name}
             placeholder={getControlItem.placeholder}
+            value={value}
+            onChange={(e) => setFormData({ ...formData, [getControlItem.name]: e.target.value })}
           />
         );
         break;
@@ -60,6 +68,8 @@ const FormControls = ({ formControls = [], formData, setFormData }) => {
             name={getControlItem.name}
             placeholder={getControlItem.placeholder}
             type={getControlItem.type}
+            value={value}
+            onChange={(e) => setFormData({ ...formData, [getControlItem.name]: e.target.value })}
           />
         );
         break;

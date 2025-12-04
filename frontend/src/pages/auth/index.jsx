@@ -10,21 +10,30 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInFormControls, signUpFormControls } from "@/config";
 import { AuthContext } from "@/context";
 import { TabsContent } from "@radix-ui/react-tabs";
+
 import { useContext, useState } from "react";
 import { IoBookSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 export const AuthPage = () => {
   const [activeTab, setActiveTab] = useState("signin");
- const {signInFormData,setSignInFormData,signUpFormData,setSignUpFormData}=useContext(AuthContext)
+  const { signInFormData, setSignInFormData, signUpFormData, setSignUpFormData } = useContext(AuthContext)
 
   const handleTabChange = (value) => {
     setActiveTab(value);
-  };
+  }
+
+  const checkIfSignInFormIsValid = () => {
+    return signInFormData && signInFormData.userEmail !== "" && signInFormData.password !== "";
+  }
+  const checkIfSignUpFormIsValid = () => {
+    return signUpFormData && signUpFormData.userName !== "" && signUpFormData.userEmail !== "" && signUpFormData.password !== "";
+  }
+
   return (
     <>
       {/* MAIN CONTAINER OF WEB PAGE */}
-      <div className="major-container min-h-screen flex flex-col">
+      <div className="major-container  min-h-screen flex flex-col">
         {/* HEADER START */}
         <header className="px-4 lg:px-6 h-16 flex items-center border-b  bg-white/10 backdrop-blur-md supports-backdrop-filter:bg-white/5 sticky top-0 z-50">
           <Link to={"/"} className="flex items-center justify-center group">
@@ -45,8 +54,8 @@ export const AuthPage = () => {
             className="w-full max-w-md"
           >
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              <TabsTrigger value="signin" className="cursor-pointer">Sign In</TabsTrigger>
+              <TabsTrigger value="signup" className="cursor-pointer">Sign Up</TabsTrigger>
             </TabsList>
             <TabsContent value="signin">
               <Card className="p-6 space-y-2">
@@ -62,6 +71,9 @@ export const AuthPage = () => {
                   <CommonForm
                     formControls={signInFormControls}
                     buttonText={"Sign In"}
+                    formData={signInFormData}
+                    setFormData={setSignInFormData}
+                    isButtonDisabled={!checkIfSignInFormIsValid()}
                   />
                 </CardContent>
               </Card>
@@ -80,6 +92,9 @@ export const AuthPage = () => {
                   <CommonForm
                     formControls={signUpFormControls}
                     buttonText={"Sign Up"}
+                    formData={signUpFormData}
+                    setFormData={setSignUpFormData}
+                    isButtonDisabled={!checkIfSignUpFormIsValid()}
                   />
                 </CardContent>
               </Card>
