@@ -1,7 +1,7 @@
 import User from "../../models/User.js";
 import bcrypt from "bcryptjs";
 
-const registerUser = async () => {
+const registerUser = async (req,res) => {
   const { userName, userEmail, password, role } = req.body;
   const existingUser = await User.findOne({
     $or: [{ userEmail }, { userName }],
@@ -15,17 +15,16 @@ const registerUser = async () => {
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
-  const newuser = new User({
+  const newUser = new User({
     userName,
     userEmail,
     role,
     password: hashPassword,
   });
+
+  await newUser.save();
+  return res
+    .status(201)
+    .json({ success: true, message: "User registered successfully!" });
 };
-
-await newUser.save();
-return res
-  .status(201)
-  .json({ success: true, message: "User registered successfully!" });
-
 export { registerUser };

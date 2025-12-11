@@ -3,17 +3,26 @@ import express from "express";
 import { ConnectToDB } from "./database/db.js";
 import { log } from "console";
 import cors from "cors";
+import authRoutes from "./routes/auth-routes/index.js";
+
 dotenv.config();
 const app = express();
 app.use(express.json());
 ConnectToDB();
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+      origin: [
+      process.env.FRONTEND_URL,
+      "https://*.github.dev",
+      "https://*.app.github.dev",
+      "http://localhost:3000"
+    ],
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+app.use("/auth", authRoutes);
 
 app.use((err, req, res, next) => {
   log(err.stack);
@@ -23,6 +32,8 @@ app.use((err, req, res, next) => {
   });
 });
 const PORT = process.env.PORT;
-app.listen((req, res) => {
-  console.log(`server running at PORT ${PORT}`);
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running at PORT ${PORT}`);
 });
+
