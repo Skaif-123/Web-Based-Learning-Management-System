@@ -1,26 +1,22 @@
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import { ConnectToDB } from "./database/db.js";
-import { log } from "console";
-import cors from "cors";
 import authRoutes from "./routes/auth-routes/index.js";
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 ConnectToDB();
-app.use(
-  cors({
-      origin: [
-      process.env.FRONTEND_URL,
-      "https://*.github.dev",
-      "https://*.app.github.dev",
-      "http://localhost:3000"
-    ],
-    methods: ["GET", "POST", "DELETE", "PUT"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+
+
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow requests from your frontend origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+  credentials: true // If you need to send cookies/authentication headers
+}))
+
 
 app.use("/auth", authRoutes);
 
@@ -36,4 +32,3 @@ const PORT = process.env.PORT;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running at PORT ${PORT}`);
 });
-

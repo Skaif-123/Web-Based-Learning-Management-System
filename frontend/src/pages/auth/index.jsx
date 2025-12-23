@@ -17,18 +17,34 @@ import { Link } from "react-router-dom";
 
 export const AuthPage = () => {
   const [activeTab, setActiveTab] = useState("signin");
-  const { signInFormData, setSignInFormData, signUpFormData, setSignUpFormData } = useContext(AuthContext)
+  const {
+    signInFormData,
+    setSignInFormData,
+    signUpFormData,
+    setSignUpFormData,
+    handleRegisterUser,
+    handleLoginUser,
+  } = useContext(AuthContext);
 
   const handleTabChange = (value) => {
     setActiveTab(value);
-  }
+  };
 
   const checkIfSignInFormIsValid = () => {
-    return signInFormData && signInFormData.userEmail !== "" && signInFormData.password !== "";
-  }
+    return (
+      signInFormData &&
+      signInFormData.userEmail !== "" &&
+      signInFormData.password !== ""
+    );
+  };
   const checkIfSignUpFormIsValid = () => {
-    return signUpFormData && signUpFormData.userName !== "" && signUpFormData.userEmail !== "" && signUpFormData.password !== "";
-  }
+    return (
+      signUpFormData &&
+      signUpFormData.userName !== "" &&
+      signUpFormData.userEmail !== "" &&
+      signUpFormData.password !== ""
+    );
+  };
 
   return (
     <>
@@ -54,8 +70,12 @@ export const AuthPage = () => {
             className="w-full max-w-md"
           >
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin" className="cursor-pointer">Sign In</TabsTrigger>
-              <TabsTrigger value="signup" className="cursor-pointer">Sign Up</TabsTrigger>
+              <TabsTrigger value="signin" className="cursor-pointer">
+                Sign In
+              </TabsTrigger>
+              <TabsTrigger value="signup" className="cursor-pointer">
+                Sign Up
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="signin">
               <Card className="p-6 space-y-2">
@@ -74,6 +94,7 @@ export const AuthPage = () => {
                     formData={signInFormData}
                     setFormData={setSignInFormData}
                     isButtonDisabled={!checkIfSignInFormIsValid()}
+                    handleSubmit={handleLoginUser}
                   />
                 </CardContent>
               </Card>
@@ -95,6 +116,7 @@ export const AuthPage = () => {
                     formData={signUpFormData}
                     setFormData={setSignUpFormData}
                     isButtonDisabled={!checkIfSignUpFormIsValid()}
+                    handleSubmit={handleRegisterUser}
                   />
                 </CardContent>
               </Card>
