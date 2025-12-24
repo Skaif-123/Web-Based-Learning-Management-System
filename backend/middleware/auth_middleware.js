@@ -9,7 +9,7 @@ const authenticate = (req, res, next) => {
   if (!authHeader) {
     return res.status(401).json({
       success: false,
-      message: "User is not authhenticated",
+      message: "User is not authenticated",
     });
   }
 

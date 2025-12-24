@@ -8,7 +8,7 @@ const CommonForm = ({ handleSubmit, buttonText, formControls = [], formData, set
       <form onSubmit={handleSubmit}>
         {/* {render all form controls over here} */}
         <FormControls formControls={formControls} formData={formData} setFormData={setFormData} />
-        <Button disabled={isButtonDisabled} type="submit" className="mt-5 w-full">{buttonText || "submit"}</Button>
+        <Button disabled={isButtonDisabled} type="submit" className="mt-5 w-full cursor-pointer">{buttonText || "submit"}</Button>
       </form>
     </>
   )
