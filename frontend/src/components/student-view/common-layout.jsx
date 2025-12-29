@@ -1,8 +1,11 @@
-import React from 'react'
+import { Outlet } from "react-router-dom"
 
 const StudentViewCommonLayout = () => {
   return (
-    <div>StudentViewCommonLayout</div>
+    <div className='bg-red-400'>StudentViewCommonLayout
+    
+     <Outlet/>
+    </div>
   )
 }
 

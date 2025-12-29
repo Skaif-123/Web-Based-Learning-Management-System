@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import { initialSignInFormData, initialSignUpFormData } from "@/config";
 import { checkAuthService, loginService, registerService } from "@/services";
 import { createContext, useEffect, useState } from "react";
@@ -11,6 +12,7 @@ const AuthProvider = ({ children }) => {
     authenticate: false,
     user: null,
   });
+  const [loading, setLoading] = useState(true);
 
   async function handleRegisterUser(e) {
     e.preventDefault();
@@ -33,20 +35,36 @@ const AuthProvider = ({ children }) => {
     }
   }
   async function checkAuthUser() {
-   
-    const res = await checkAuthService();
-    const data = res.data;
-    if (data.success) {
-      setAuth({
-        authenticate: true,
-        user: data.data.user,
-      });
-    } else {
-      setAuth({ authenticate: false, user: null });
+    try {
+      const res = await checkAuthService();
+      const data = res.data;
+      if (data.success) {
+        setAuth({
+          authenticate: true,
+          user: data.data.user,
+        });
+        setLoading(false);
+      } else {
+        setAuth({ authenticate: false, user: null });
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      if (!error?.response?.data?.success) {
+        setAuth({
+          authenticate: false,
+          user: null,
+        });
+        setLoading(false);
+      }
     }
   }
 
-    useEffect(() => {
+  function resetCredentials() {
+    setAuth({ authenticate: false, user: null });
+  }
+
+  useEffect(() => {
     checkAuthUser();
   }, []);
 
@@ -59,10 +77,11 @@ const AuthProvider = ({ children }) => {
         setSignUpFormData,
         handleRegisterUser,
         handleLoginUser,
-        auth
+        auth,
+        resetCredentials,
       }}
     >
-      {children}
+      {loading ? <Skeleton className="bg-amber-500" /> : children}
     </AuthContext.Provider>
   );
 };
