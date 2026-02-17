@@ -3,11 +3,14 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 import AuthProvider from "./context/index.jsx";
+import InstructorProvider from "./context/instructor-context/index.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <AuthProvider>
-      <App />
+      <InstructorProvider>
+        <App />
+      </InstructorProvider>
     </AuthProvider>
-  </BrowserRouter>
+  </BrowserRouter>,
 );

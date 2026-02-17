@@ -15,7 +15,7 @@ const AddNewCourse = () => {
 
       <Card>
         <CardContent>
-          <Tabs defaultValue="curriculum" className="w-[400px]">
+          <Tabs defaultValue="curriculum" className="w-full">
             <TabsList>
               <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
               <TabsTrigger value="course-landing-page">
