@@ -12,9 +12,9 @@ ConnectToDB();
 
 app.use(cors({
   origin: 'http://localhost:5173', // Allow requests from your frontend origin
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
-  credentials: true // If you need to send cookies/authentication headers
+   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed methods
+   allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+   credentials: true // If you need to send cookies/authentication headers
 }))
 
 
