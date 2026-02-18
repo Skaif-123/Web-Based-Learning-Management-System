@@ -1,6 +1,6 @@
 import {
-  courseCurriculumInitialFormData,
-  courseLandingInitialFormData,
+    courseCurriculumInitialFormData,
+    courseLandingInitialFormData,
 } from "@/config";
 import { createContext, useState } from "react";
 
@@ -13,6 +13,8 @@ export default function InstructorProvider({ children }) {
   const [courseCurriculumFormData, setCourseCurriculumFormData] = useState(
     courseCurriculumInitialFormData,
   );
+
+  const [mediaUploadProgress, setMediaUploadProgress] = useState(false);
   return (
     <InstructorContext.Provider
       value={{
@@ -20,6 +22,8 @@ export default function InstructorProvider({ children }) {
         setCourseLandingFormData,
         courseCurriculumFormData,
         setCourseCurriculumFormData,
+        mediaUploadProgress,
+        setMediaUploadProgress,
       }}
     >
       {children}
