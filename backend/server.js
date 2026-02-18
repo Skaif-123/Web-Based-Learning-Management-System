@@ -23,7 +23,7 @@ app.use("/auth", authRoutes);
 app.use("/media",mediaRoutes);
 
 app.use((err, req, res, next) => {
-  log(err.stack);
+  
   res.status(500).json({
     success: false,
     message: "Something went wrong in server section",

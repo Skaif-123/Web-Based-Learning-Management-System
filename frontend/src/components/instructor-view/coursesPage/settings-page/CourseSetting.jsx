@@ -1,8 +1,29 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { InstructorContext } from "@/context/instructor-context";
+import { mediaUploadService } from "@/services";
 import { Label } from "@radix-ui/react-dropdown-menu";
+import { useContext } from "react";
 
 const CourseSetting = () => {
+  const { courseLandingFormData, setCourseLandingFormData } =
+    useContext(InstructorContext);
+
+  const handleImageUploadChange = async (e) => {
+    const selectedImage = e.target.files[0];
+
+    if (selectedImage) {
+      const imageFormData = new FormData();
+      imageFormData.append("file", selectedImage);
+      try {
+        const response = await mediaUploadService(imageFormData);
+        console.log(response,"response ");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -11,7 +32,11 @@ const CourseSetting = () => {
       <CardContent>
         <div className="flex flex-col gap-3">
           <Label>Upload Course Image</Label>
-          <Input type="file" accept="image/*" />
+          <Input
+            onChange={handleImageUploadChange}
+            type="file"
+            accept="image/*"
+          />
         </div>
       </CardContent>
     </Card>

@@ -13,7 +13,7 @@ console.log(process.env.CLOUDINARY_API_KEY)
 const uploadMediaToCloudinary = async (filePath) => {
   try {
     const result = await cloudinary.uploader.upload(filePath, {
-      resource_type: "video",
+      resource_type: "auto",
     });
     return result;
   } catch (error) {
