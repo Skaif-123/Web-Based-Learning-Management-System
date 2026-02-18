@@ -8,13 +8,11 @@ import { InstructorContext } from "@/context/instructor-context";
 import { mediaUploadService } from "@/services";
 import { useContext } from "react";
 
-
-
 const CourseCurriculum = () => {
-  const { courseCurriculumFormData, setCourseCurriculumFormData} =
+  const { courseCurriculumFormData, setCourseCurriculumFormData } =
     useContext(InstructorContext);
 
-  const {mediaUploadProgress, setMediaUploadProgress} =
+  const { mediaUploadProgress, setMediaUploadProgress } =
     useContext(InstructorContext);
 
   const handleNewLecture = () => {
@@ -46,9 +44,21 @@ const CourseCurriculum = () => {
 
       try {
         setMediaUploadProgress(true);
-        const response=await mediaUploadService(videoFormData);
+        const response = await mediaUploadService(videoFormData);
+        console.log(response.data.success);
+        if (response.data.success) {
+          let cpyCourseCurriculumFormData = [...courseCurriculumFormData];
+          cpyCourseCurriculumFormData[currentIndex] = {
+            ...cpyCourseCurriculumFormData[currentIndex],
+            videoUrl: response?.data?.data?.url,
+            public_id: response?.data?.data?.public_id,
+          };
 
-        console.log(response,"response");
+          setCourseCurriculumFormData(cpyCourseCurriculumFormData);
+          setMediaUploadProgress(false);
+        }
+
+        console.log(response, "response");
       } catch (error) {
         console.log(error);
       }

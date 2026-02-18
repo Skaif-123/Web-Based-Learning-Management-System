@@ -1,6 +1,9 @@
 import { Router } from "express";
 import multer from "multer";
-import { deleteMediaFromCloudinary, uploadMediaToCloudinary } from "../../helpers/cloudinary.js";
+import {
+  deleteMediaFromCloudinary,
+  uploadMediaToCloudinary,
+} from "../../helpers/cloudinary.js";
 
 const router = Router();
 const upload = multer({ dest: "uploads/" });
@@ -39,4 +42,4 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
-export default  router ;
+export default router;
