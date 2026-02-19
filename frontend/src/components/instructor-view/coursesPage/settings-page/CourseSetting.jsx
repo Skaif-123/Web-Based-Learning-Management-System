@@ -17,27 +17,38 @@ const CourseSetting = () => {
       imageFormData.append("file", selectedImage);
       try {
         const response = await mediaUploadService(imageFormData);
-        console.log(response,"response ");
+        console.log(response, "response ");
+        if (response.data.success) {
+          setCourseLandingFormData({
+            ...courseLandingFormData,
+            image: response.data.data.url,
+          });
+        }
       } catch (error) {
         console.log(error);
       }
     }
   };
 
+  console.log(courseLandingFormData)
   return (
     <Card>
       <CardHeader>
         <CardTitle>Course Settings</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-col gap-3">
-          <Label>Upload Course Image</Label>
-          <Input
-            onChange={handleImageUploadChange}
-            type="file"
-            accept="image/*"
-          />
-        </div>
+        {courseLandingFormData?.image ? (
+          <img src={courseLandingFormData.image} />
+        ) : (
+          <div className="flex flex-col gap-3">
+            <Label>Upload Course Image</Label>
+            <Input
+              onChange={handleImageUploadChange}
+              type="file"
+              accept="image/*"
+            />
+          </div>
+        )}
       </CardContent>
     </Card>
   );
