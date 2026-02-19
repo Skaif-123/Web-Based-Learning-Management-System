@@ -9,11 +9,14 @@ import { mediaUploadService } from "@/services";
 import { useContext } from "react";
 
 const CourseCurriculum = () => {
-  const { courseCurriculumFormData, setCourseCurriculumFormData } =
-    useContext(InstructorContext);
-
-  const { mediaUploadProgress, setMediaUploadProgress } =
-    useContext(InstructorContext);
+  const {
+    mediaUploadProgress,
+    setMediaUploadProgress,
+    mediaUpLoadProgressPercentage,
+    setMediaLoadProgressPercentage,
+    courseCurriculumFormData,
+    setCourseCurriculumFormData,
+  } = useContext(InstructorContext);
 
   const handleNewLecture = () => {
     setCourseCurriculumFormData([

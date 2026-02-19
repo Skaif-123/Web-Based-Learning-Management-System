@@ -1,6 +1,6 @@
 import {
-    courseCurriculumInitialFormData,
-    courseLandingInitialFormData,
+  courseCurriculumInitialFormData,
+  courseLandingInitialFormData,
 } from "@/config";
 import { createContext, useState } from "react";
 
@@ -15,6 +15,8 @@ export default function InstructorProvider({ children }) {
   );
 
   const [mediaUploadProgress, setMediaUploadProgress] = useState(false);
+  const [mediaUpLoadProgressPercentage, setMediaLoadProgressPercentage] =
+    useState(0);
   return (
     <InstructorContext.Provider
       value={{
@@ -24,6 +26,8 @@ export default function InstructorProvider({ children }) {
         setCourseCurriculumFormData,
         mediaUploadProgress,
         setMediaUploadProgress,
+        mediaUpLoadProgressPercentage,
+        setMediaLoadProgressPercentage,
       }}
     >
       {children}
