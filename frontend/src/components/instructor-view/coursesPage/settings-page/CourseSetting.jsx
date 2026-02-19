@@ -47,12 +47,7 @@ const CourseSetting = () => {
       </CardHeader>
 
       <CardContent>
-        {mediaUploadProgress ? (
-          <MediaProgressbar
-            isMediaUploading={mediaUploadProgress}
-            progress={mediaUpLoadProgressPercentage}
-          />
-        ) : null}
+      
         {courseLandingFormData?.image ? (
           <img src={courseLandingFormData.image} />
         ) : (
@@ -65,6 +60,12 @@ const CourseSetting = () => {
             />
           </div>
         )}
+          {mediaUploadProgress ? (
+          <MediaProgressbar
+            isMediaUploading={mediaUploadProgress}
+            progress={mediaUpLoadProgressPercentage}
+          />
+        ) : null}
       </CardContent>
     </Card>
   );
