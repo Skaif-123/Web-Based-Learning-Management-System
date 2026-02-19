@@ -1,3 +1,4 @@
+import MediaProgressbar from "@/components/media-progress-tracking";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { InstructorContext } from "@/context/instructor-context";
@@ -6,8 +7,14 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { useContext } from "react";
 
 const CourseSetting = () => {
-  const { courseLandingFormData, setCourseLandingFormData } =
-    useContext(InstructorContext);
+  const {
+    courseLandingFormData,
+    setCourseLandingFormData,
+    mediaUploadProgress,
+    setMediaUploadProgress,
+    mediaUpLoadProgressPercentage,
+    setMediaLoadProgressPercentage,
+  } = useContext(InstructorContext);
 
   const handleImageUploadChange = async (e) => {
     const selectedImage = e.target.files[0];
@@ -16,7 +23,8 @@ const CourseSetting = () => {
       const imageFormData = new FormData();
       imageFormData.append("file", selectedImage);
       try {
-        const response = await mediaUploadService(imageFormData);
+        setMediaUploadProgress(true);
+        const response = await mediaUploadService(imageFormData,setMediaLoadProgressPercentage);
         console.log(response, "response ");
         if (response.data.success) {
           setCourseLandingFormData({
@@ -24,19 +32,27 @@ const CourseSetting = () => {
             image: response.data.data.url,
           });
         }
+        setMediaUploadProgress(false);
       } catch (error) {
         console.log(error);
       }
     }
   };
 
-  console.log(courseLandingFormData)
+  console.log(courseLandingFormData);
   return (
     <Card>
       <CardHeader>
         <CardTitle>Course Settings</CardTitle>
       </CardHeader>
+
       <CardContent>
+        {mediaUploadProgress ? (
+          <MediaProgressbar
+            isMediaUploading={mediaUploadProgress}
+            progress={mediaUpLoadProgressPercentage}
+          />
+        ) : null}
         {courseLandingFormData?.image ? (
           <img src={courseLandingFormData.image} />
         ) : (
