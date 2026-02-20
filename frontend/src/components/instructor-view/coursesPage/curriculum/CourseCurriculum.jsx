@@ -73,6 +73,8 @@ const CourseCurriculum = () => {
     }
   };
 
+
+
   function handleFreePreviewChange(currentValue, currentIndex) {
     let cpyCourseCurriculumFormData = [...courseCurriculumFormData];
     cpyCourseCurriculumFormData[currentIndex] = {
@@ -85,13 +87,30 @@ const CourseCurriculum = () => {
 
   console.log(courseCurriculumFormData);
 
+
+    const isCourseCurriculumFormDataValid = () => {
+    return courseCurriculumFormData.every((item) => {
+      return (
+        item &&
+        typeof item === "object" &&
+        item.title.trim() !== "" &&
+        item.videoUrl.trim() !== ""
+      );
+    });
+  };
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Create Course Curriculum</CardTitle>
       </CardHeader>
       <CardContent>
-        <Button onClick={handleNewLecture}>Add lecture</Button>
+        <Button
+          disabled={!isCourseCurriculumFormDataValid()||mediaUploadProgress}
+          onClick={handleNewLecture}
+        >
+          Add lecture
+        </Button>
         {mediaUploadProgress ? (
           <MediaProgressbar
             isMediaUploading={mediaUploadProgress}
