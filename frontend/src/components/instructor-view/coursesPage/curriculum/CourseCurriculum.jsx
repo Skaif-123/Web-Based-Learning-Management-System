@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import VideoPlayer from "@/components/video-player";
 import { courseCurriculumInitialFormData } from "@/config";
 import { InstructorContext } from "@/context/instructor-context";
-import { mediaUploadService } from "@/services";
+import { mediaDeleteService, mediaUploadService } from "@/services";
 import { useContext } from "react";
 
 const CourseCurriculum = () => {
@@ -73,8 +73,6 @@ const CourseCurriculum = () => {
     }
   };
 
-
-
   function handleFreePreviewChange(currentValue, currentIndex) {
     let cpyCourseCurriculumFormData = [...courseCurriculumFormData];
     cpyCourseCurriculumFormData[currentIndex] = {
@@ -87,8 +85,7 @@ const CourseCurriculum = () => {
 
   console.log(courseCurriculumFormData);
 
-
-    const isCourseCurriculumFormDataValid = () => {
+  const isCourseCurriculumFormDataValid = () => {
     return courseCurriculumFormData.every((item) => {
       return (
         item &&
@@ -99,6 +96,25 @@ const CourseCurriculum = () => {
     });
   };
 
+  const handleReplaceVideo = async (currentIndex) => {
+    let cpyCourseCurriculumFormData = [...courseCurriculumFormData];
+    const getCurrentVideoPublicId =
+      cpyCourseCurriculumFormData[currentIndex].public_id;
+    const deleteCurrentMediaResponse = await mediaDeleteService(
+      getCurrentVideoPublicId,
+    );
+    if (deleteCurrentMediaResponse?.success) {
+      cpyCourseCurriculumFormData[currentIndex] = {
+        ...cpyCourseCurriculumFormData[currentIndex],
+        videoUrl: "",
+        public_id: "",
+      };
+
+      setCourseCurriculumFormData(cpyCourseCurriculumFormData);
+    }
+  };
+  const handleDeleteLecture = () => {};
+
   return (
     <Card>
       <CardHeader>
@@ -106,7 +122,7 @@ const CourseCurriculum = () => {
       </CardHeader>
       <CardContent>
         <Button
-          disabled={!isCourseCurriculumFormDataValid()||mediaUploadProgress}
+          disabled={!isCourseCurriculumFormDataValid() || mediaUploadProgress}
           onClick={handleNewLecture}
         >
           Add lecture
