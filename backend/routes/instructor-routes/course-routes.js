@@ -2,14 +2,14 @@ import express from "express";
 import {
   addNewCourse,
   getAllCourses,
-  getCourseDetails,
+  getCourseDetailsById,
   updateCourseById,
 } from "../../controllers/instructor-controller/course-controller.js";
 
-const router=express.Router();
-router.post('/add',addNewCourse);
-router.get('/get',getAllCourses);
-router.get('/get/details/:id',updateCourseById);
-router.put('/update/:id',updateCourseById);
+const router = express.Router();
+router.post("/add", addNewCourse);
+router.get("/get", getAllCourses);
+router.get("/get/details/:id", getCourseDetailsById);
+router.put("/update/:id", updateCourseById);
 
-module.exports=router;
+export default router;
