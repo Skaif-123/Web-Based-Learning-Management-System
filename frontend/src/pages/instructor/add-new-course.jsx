@@ -4,11 +4,15 @@ import CourseSetting from "@/components/instructor-view/coursesPage/settings-pag
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { courseCurriculumInitialFormData, courseLandingInitialFormData } from "@/config";
+import {
+  courseCurriculumInitialFormData,
+  courseLandingInitialFormData,
+} from "@/config";
 import { AuthContext } from "@/context";
 import { InstructorContext } from "@/context/instructor-context";
 import { addNewCourseService } from "@/services";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddNewCourse = () => {
   const {
@@ -18,6 +22,7 @@ const AddNewCourse = () => {
     setCourseCurriculumFormData,
   } = useContext(InstructorContext);
   const { auth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   function isEmpty(value) {
     if (Array.isArray(value)) {
@@ -65,6 +70,7 @@ const AddNewCourse = () => {
     if (response.success) {
       setCourseLandingFormData(courseLandingInitialFormData);
       setCourseCurriculumFormData(courseCurriculumInitialFormData);
+      navigate(-1);
     }
 
     console.log(courseFinalFormData);
