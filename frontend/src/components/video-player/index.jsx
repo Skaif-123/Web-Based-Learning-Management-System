@@ -1,6 +1,3 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Slider } from "../ui/slider";
-import { Button } from "../ui/button";
 import {
   Maximize,
   Minimize,
@@ -11,6 +8,9 @@ import {
   Volume2,
   VolumeX,
 } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Button } from "../ui/button";
+import { Slider } from "../ui/slider";
 
 function VideoPlayer({
   width = "100%",
