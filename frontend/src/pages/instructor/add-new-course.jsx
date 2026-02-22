@@ -20,6 +20,7 @@ const AddNewCourse = () => {
     setCourseLandingFormData,
     courseCurriculumFormData,
     setCourseCurriculumFormData,
+    
   } = useContext(InstructorContext);
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
