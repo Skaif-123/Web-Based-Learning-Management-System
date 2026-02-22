@@ -12,7 +12,7 @@ import { AuthContext } from "@/context";
 import { InstructorContext } from "@/context/instructor-context";
 import { addNewCourseService } from "@/services";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AddNewCourse = () => {
   const {
@@ -24,6 +24,13 @@ const AddNewCourse = () => {
   } = useContext(InstructorContext);
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { currentEditedCourseId, setCurrentEditedCourseId } =
+    useContext(InstructorContext);
+    const params=useParams();
+    console.log(params);
+    
+   
+    
 
   function isEmpty(value) {
     if (Array.isArray(value)) {

@@ -8,12 +8,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { InstructorContext } from "@/context/instructor-context";
 import { Edit2 } from "lucide-react";
+import { useContext } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 const CoursePage = ({ listOfCourses }) => {
   const navigate = useNavigate();
+  const { currentEditedCourseId, setCurrentEditedCourseId } =
+    useContext(InstructorContext);
   return (
     <>
       <Card>
@@ -47,7 +51,10 @@ const CoursePage = ({ listOfCourses }) => {
                         <TableCell>{course?.students?.length}</TableCell>
                         <TableCell>${course?.pricing}</TableCell>
                         <TableCell className="text-right flex justify-end gap-2">
-                          <Button className="bg-green-400 hover:bg-green-600">
+                          <Button onClick={()=>{
+                            setCurrentEditedCourseId(course?._id);
+                            navigate(`/instructor/edit-course/${course?._id}`);
+                          }} className="bg-green-400 hover:bg-green-600">
                             <Edit2></Edit2>
                           </Button>
                           <Button className="bg-red-400 hover:bg-red-600 ">
