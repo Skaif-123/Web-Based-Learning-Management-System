@@ -10,8 +10,11 @@ import {
 } from "@/config";
 import { AuthContext } from "@/context";
 import { InstructorContext } from "@/context/instructor-context";
-import { addNewCourseService } from "@/services";
-import { useContext } from "react";
+import {
+  addNewCourseService,
+  fetchInstructorCourseDetailsService,
+} from "@/services";
+import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const AddNewCourse = () => {
@@ -20,17 +23,41 @@ const AddNewCourse = () => {
     setCourseLandingFormData,
     courseCurriculumFormData,
     setCourseCurriculumFormData,
-    
   } = useContext(InstructorContext);
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
   const { currentEditedCourseId, setCurrentEditedCourseId } =
     useContext(InstructorContext);
-    const params=useParams();
-    console.log(params);
+  const params = useParams();
+  async function fetchCurrentCourseDetails() {
+    const response = await fetchInstructorCourseDetailsService(
+      currentEditedCourseId,
+    );
+    if (response?.success) {
+      const setCourseFormData = Object.keys(
+        courseLandingInitialFormData,
+      ).reduce((acc, key) => {
+        acc[key] = response?.data[key] || courseLandingInitialFormData[key];
+
+        return acc;
+      }, {});
+
+      console.log(setCourseFormData, response?.data, "setCourseFormData");
+      setCourseLandingFormData(setCourseFormData);
+      setCourseCurriculumFormData(response?.data?.curriculum);
+    }
     
-   
-    
+  }
+
+  useEffect(() => {
+    if (currentEditedCourseId) fetchCurrentCourseDetails();
+  }, [currentEditedCourseId]);
+
+  useEffect(() => {
+    if (params) {
+      setCurrentEditedCourseId(params?.courseId);
+    }
+  }, [params]);
 
   function isEmpty(value) {
     if (Array.isArray(value)) {
