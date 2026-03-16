@@ -17,6 +17,7 @@ const CourseSchema = new mongoose.Schema({
   primaryLanguage: String,
   subtitle: String,
   description: String,
+  image: String,
   pricing: Number,
   objectives: String,
   welcomeMessage: String,
@@ -26,4 +27,5 @@ const CourseSchema = new mongoose.Schema({
 });
 
 const Course = mongoose.model("Course", CourseSchema);
-export  {Course};
+export { Course };
+

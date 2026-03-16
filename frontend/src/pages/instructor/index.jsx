@@ -15,7 +15,7 @@ const InstructorDashBoardPage = () => {
   const { instructorCourseList, setInstructorCourseList } =
     useContext(InstructorContext);
 
-async function fetchALlCourses(){
+async function fetchALLCourses(){
   const response =await fetchInstructorCourseListService();
   console.log(response);
 
@@ -26,7 +26,7 @@ async function fetchALlCourses(){
 }
 
   useEffect(() => {
-    fetchALlCourses();
+    fetchALLCourses();
   }, []);
   const menuItems = [
     {
