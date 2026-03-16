@@ -12,4 +12,6 @@ router.get("/get", getAllCourses);
 router.get("/get/details/:id", getCourseDetailsById);
 router.put("/update/:id", updateCourseById);
 
+
+
 export default router;
