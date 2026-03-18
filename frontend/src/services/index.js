@@ -31,9 +31,8 @@ export async function mediaUploadService(formData, onProgressCallback) {
   return data;
 }
 
-
 export async function mediaDeleteService(id) {
-  const {data} = await axiosInstance.delete(`/media/delete/${id}`);
+  const { data } = await axiosInstance.delete(`/media/delete/${id}`);
   return data;
 }
 
@@ -45,7 +44,7 @@ export async function addNewCourseService(formData) {
 
 export async function fetchInstructorCourseDetailsService(id) {
   const { data } = await axiosInstance.get(
-    `/instructor/course/get/details/${id}`
+    `/instructor/course/get/details/${id}`,
   );
 
   return data;
@@ -60,7 +59,7 @@ export async function fetchInstructorCourseListService() {
 export async function updateCourseByIdService(id, formData) {
   const { data } = await axiosInstance.put(
     `/instructor/course/update/${id}`,
-    formData
+    formData,
   );
 
   return data;
@@ -70,7 +69,7 @@ export async function mediaBulkUploadService(formData, onProgressCallback) {
   const { data } = await axiosInstance.post("/media/bulk-upload", formData, {
     onUploadProgress: (progressEvent) => {
       const percentCompleted = Math.round(
-        (progressEvent.loaded * 100) / progressEvent.total
+        (progressEvent.loaded * 100) / progressEvent.total,
       );
       onProgressCallback(percentCompleted);
     },
@@ -78,3 +77,16 @@ export async function mediaBulkUploadService(formData, onProgressCallback) {
   return data;
 }
 
+export async function fetchStudentCourseListService() {
+  const { data } = await axiosInstance.get(`/student/course/get`);
+
+  return data;
+}
+
+export async function fetchStudentCourseDetailsService(courseId) {
+  const { data } = await axiosInstance.get(
+    `/student/course/get/details/${courseId}`,
+  );
+
+  return data;
+}

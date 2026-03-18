@@ -5,12 +5,15 @@ import AuthProvider from "./context/index.jsx";
 
 import InstructorProvider from "./context/instructor-context/index.jsx";
 import "./index.css";
+import StudentProvider from "./context/student-context/index.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <AuthProvider>
       <InstructorProvider>
-        <App />
+        <StudentProvider>
+          <App />
+        </StudentProvider>
       </InstructorProvider>
     </AuthProvider>
   </BrowserRouter>,

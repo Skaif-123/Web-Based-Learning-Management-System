@@ -3,8 +3,9 @@ import dotenv from "dotenv";
 import express from "express";
 import { ConnectToDB } from "./database/db.js";
 import authRoutes from "./routes/auth-routes/index.js";
-import mediaRoutes from "./routes/instructor-routes/mediaRoutes.js";
 import instructorCourseRoutes from "./routes/instructor-routes/course-routes.js";
+import mediaRoutes from "./routes/instructor-routes/mediaRoutes.js";
+import studentViewCoursesRoutes from "./routes/student-routes/course-routes.js";
 
 dotenv.config();
 const app = express();
@@ -23,6 +24,7 @@ app.use(cors({
 app.use("/auth", authRoutes);
 app.use("/media",mediaRoutes);
 app.use("/instructor/course",instructorCourseRoutes);
+app.use("/student/course", studentViewCoursesRoutes);
 
 app.use((err, req, res, next) => {
   
