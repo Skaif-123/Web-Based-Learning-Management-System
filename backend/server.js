@@ -6,6 +6,9 @@ import authRoutes from "./routes/auth-routes/index.js";
 import instructorCourseRoutes from "./routes/instructor-routes/course-routes.js";
 import mediaRoutes from "./routes/instructor-routes/mediaRoutes.js";
 import studentViewCoursesRoutes from "./routes/student-routes/course-routes.js";
+import studentViewOrderRoutes from "./routes/student-routes/order-routes.js";
+
+
 
 dotenv.config();
 const app = express();
@@ -25,6 +28,7 @@ app.use("/auth", authRoutes);
 app.use("/media",mediaRoutes);
 app.use("/instructor/course",instructorCourseRoutes);
 app.use("/student/course", studentViewCoursesRoutes);
+app.use("/student/order", studentViewOrderRoutes);
 
 app.use((err, req, res, next) => {
   

@@ -1,11 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import VideoPlayer from "@/components/video-player";
 import { StudentContext } from "@/context/student-context";
 import { fetchStudentCourseDetailsService } from "@/services";
 import { CheckCircle, Globe, Lock, PlayCircle } from "lucide-react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 const StudentViewCourseDetailsPage = () => {
   const {
@@ -16,10 +24,21 @@ const StudentViewCourseDetailsPage = () => {
     loadingState,
     setLoadingState,
   } = useContext(StudentContext);
+  const [displayCurrentVideoFreePreview, setDisplayCurrentVideoFreePreview] =
+    useState(null);
+  const [showFreePreviewDialog, setShowFreePreviewDialog] = useState(false);
+  const [approvalUrl, setApprovalUrl] = useState("");
 
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
+
+
+
+  function handleSetFreePreview(getCurrentVideoInfo) {
+    console.log(getCurrentVideoInfo);
+    setDisplayCurrentVideoFreePreview(getCurrentVideoInfo?.videoUrl);
+  }
 
   async function fetchStudentViewCourseDetails() {
     const response = await fetchStudentCourseDetailsService(
@@ -50,6 +69,10 @@ const StudentViewCourseDetailsPage = () => {
   useEffect(() => {
     if (id) setCurrentCourseDetailsId(id);
   }, [id]);
+
+    useEffect(() => {
+    if (displayCurrentVideoFreePreview !== null) setShowFreePreviewDialog(true);
+  }, [displayCurrentVideoFreePreview]);
 
   return (
     <div className=" mx-auto p-4">
@@ -149,13 +172,50 @@ const StudentViewCourseDetailsPage = () => {
                     ${studentViewCourseDetails?.pricing}
                   </span>
                 </div>
-                <Button className="w-full">
-                  Buy Now
-                </Button>
+                <Button className="w-full">Buy Now</Button>
               </CardContent>
             </Card>
           </aside>
         </div>
+        <Dialog
+          open={showFreePreviewDialog}
+          onOpenChange={() => {
+            setShowFreePreviewDialog(false);
+            setDisplayCurrentVideoFreePreview(null);
+          }}
+        >
+          <DialogContent className="w-[800px]">
+            <DialogHeader>
+              <DialogTitle>Course Preview</DialogTitle>
+            </DialogHeader>
+            <div className="aspect-video rounded-lg flex items-center justify-center">
+              <VideoPlayer
+                url={displayCurrentVideoFreePreview}
+                width="450px"
+                height="200px"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              {studentViewCourseDetails?.curriculum
+                ?.filter((item) => item.freePreview)
+                .map((filteredItem) => (
+                  <p
+                    onClick={() => handleSetFreePreview(filteredItem)}
+                    className="cursor-pointer text-[16px] font-medium"
+                  >
+                    {filteredItem?.title}
+                  </p>
+                ))}
+            </div>
+            <DialogFooter className="sm:justify-start">
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  Close
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
