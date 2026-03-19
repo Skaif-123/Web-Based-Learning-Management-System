@@ -1,7 +1,7 @@
-import payment from "../../helpers/paypal.js";
+import paypal from "../../helpers/paypal.js";
+import { Course } from "../../models/Course.js";
 import Order from "../../models/Order.js";
 import StudentCourses from "../../models/StudentCourses.js";
-
 
 const createOrder = async (req, res) => {
   try {
@@ -54,7 +54,7 @@ const createOrder = async (req, res) => {
       ],
     };
 
-    payment.create(create_payment_json, async (error, paymentInfo) => {
+    paypal.payment.create(create_payment_json, async (error, paymentInfo) => {
       if (error) {
         console.log(error);
         return res.status(500).json({
@@ -108,7 +108,7 @@ const capturePaymentAndFinalizeOrder = async (req, res) => {
   try {
     const { paymentId, payerId, orderId } = req.body;
 
-    let order = await findById(orderId);
+    let order = await Order.findById(orderId);
 
     if (!order) {
       return res.status(404).json({
@@ -125,7 +125,7 @@ const capturePaymentAndFinalizeOrder = async (req, res) => {
     await order.save();
 
     //update out student course model
-    const studentCourses = await findOne({
+    const studentCourses = await StudentCourses.findOne({
       userId: order.userId,
     });
 
@@ -159,7 +159,7 @@ const capturePaymentAndFinalizeOrder = async (req, res) => {
     }
 
     //update the course schema students
-    await findByIdAndUpdate(order.courseId, {
+    await Course.findByIdAndUpdate(order.courseId, {
       $addToSet: {
         students: {
           studentId: order.userId,
@@ -179,9 +179,9 @@ const capturePaymentAndFinalizeOrder = async (req, res) => {
     console.log(err);
     res.status(500).json({
       success: false,
-      message: "Some error occurred!",
+      message: "Some error occured!",
     });
   }
 };
 
-export default { capturePaymentAndFinalizeOrder, createOrder };
+export default { createOrder, capturePaymentAndFinalizeOrder };
