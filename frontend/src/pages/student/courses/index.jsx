@@ -84,7 +84,9 @@ const StudentViewCoursesPage = () => {
     }
   }
 
-  async function handleCourseNavigate(getCurrentCourseId) {}
+  async function handleCourseNavigate(getCurrentCourseId) {
+    navigate(`details/${getCurrentCourseId}`)
+  }
 
   useEffect(() => {
     const buildQueryStringForFilters = createSearchParamsHelper(filters);

@@ -79,7 +79,7 @@ router.delete("/delete/:id", async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Assest deleted successfully from cloudinary",
+      message: "Asset deleted successfully from cloudinary",
     });
   } catch (e) {
     console.log(e);
