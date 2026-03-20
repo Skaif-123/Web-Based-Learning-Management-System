@@ -7,9 +7,11 @@ import { AuthPage } from "./pages/auth";
 import InstructorDashBoardPage from "./pages/instructor";
 import AddNewCourse from "./pages/instructor/add-new-course";
 import NotFoundPage from "./pages/not-found";
-import StudentHomePage from "./pages/student/home";
-import StudentViewCoursesPage from "./pages/student/courses";
 import StudentViewCourseDetailsPage from "./pages/student/course-details";
+import StudentViewCoursesPage from "./pages/student/courses";
+import StudentHomePage from "./pages/student/home";
+import PaypalPaymentReturnPage from "./pages/student/payment-return";
+import StudentCoursesPage from "./pages/student/student-courses";
 
 function App() {
   const { auth } = useContext(AuthContext);
@@ -69,7 +71,12 @@ function App() {
           <Route path="" element={<StudentHomePage />} />
           <Route path="home" element={<StudentHomePage />} />
           <Route path="courses" element={<StudentViewCoursesPage />} />
-          <Route path="courses/details/:id" element={<StudentViewCourseDetailsPage/>} />
+          <Route
+            path="courses/details/:id"
+            element={<StudentViewCourseDetailsPage />}
+          />
+          <Route path="payment-return" element={<PaypalPaymentReturnPage />} />
+          <Route path="student-courses" element={<StudentCoursesPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

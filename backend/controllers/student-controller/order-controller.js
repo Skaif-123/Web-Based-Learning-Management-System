@@ -23,6 +23,7 @@ const createOrder = async (req, res) => {
       coursePricing,
     } = req.body;
 
+    const price = Number(coursePricing).toFixed(2);
     const create_payment_json = {
       intent: "sale",
       payer: {
@@ -39,7 +40,7 @@ const createOrder = async (req, res) => {
               {
                 name: courseTitle,
                 sku: courseId,
-                price: coursePricing,
+                price: price,
                 currency: "USD",
                 quantity: 1,
               },
@@ -47,7 +48,7 @@ const createOrder = async (req, res) => {
           },
           amount: {
             currency: "USD",
-            total: coursePricing.toFixed(2),
+            total: price,
           },
           description: courseTitle,
         },
