@@ -92,17 +92,26 @@ const checkCoursePurchaseInfo = async (req, res) => {
   try {
     const { id, studentId } = req.params;
 
-
-    
     const studentCourses = await StudentCourses.findOne({
       userId: studentId,
     });
 
-    const ifStudentAlreadyBoughtCurrentCourse =
-      studentCourses.courses.findIndex((item) => item.courseId === id) > -1;
+    // ✅ Handle empty DB / no record
+    if (!studentCourses || !studentCourses.courses?.length) {
+      return res.status(200).json({
+        success: true,
+        data: false, // not purchased
+      });
+    }
+
+    const isPurchased =
+      studentCourses.courses.findIndex(
+        (item) => item.courseId === id
+      ) > -1;
+
     res.status(200).json({
       success: true,
-      data: ifStudentAlreadyBoughtCurrentCourse,
+      data: isPurchased,
     });
   } catch (e) {
     console.log(e);
@@ -113,8 +122,9 @@ const checkCoursePurchaseInfo = async (req, res) => {
   }
 };
 
+
 export {
-  getAllStudentViewCourses,
-  getStudentViewCourseDetails,
-  checkCoursePurchaseInfo,
+  checkCoursePurchaseInfo, getAllStudentViewCourses,
+  getStudentViewCourseDetails
 };
+

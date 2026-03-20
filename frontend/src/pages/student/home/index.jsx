@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 import banner from "../../../../public/banner1.jpeg";
 
 import { AuthContext } from "@/context";
-import { fetchStudentCourseListService } from "@/services";
+import { checkCoursePurchaseInfoService, fetchStudentCourseListService } from "@/services";
 import { useNavigate } from "react-router-dom";
 
 function StudentHomePage() {
@@ -21,8 +21,19 @@ function StudentHomePage() {
   }
 
   async function handleCourseNavigate(getCurrentCourseId) {
-    
-  }
+    const response = await checkCoursePurchaseInfoService(
+       getCurrentCourseId,
+       auth?.user?._id._id
+     );
+ 
+     if (response?.success) {
+       if (response?.data) {
+         navigate(`/course-progress/${getCurrentCourseId}`);
+       } else {
+         navigate(`/courses/details/${getCurrentCourseId}`);
+       }
+     }
+   }
 
   useEffect(() => {
     fetchAllStudentViewCourses();

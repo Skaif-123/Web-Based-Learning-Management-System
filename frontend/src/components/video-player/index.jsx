@@ -158,7 +158,7 @@ function VideoPlayer({
         progressValue: 1,
       });
     }
-  }, [played, onProgressUpdate, progressData]);
+  }, [played]);
 
   /* ---------------- FORMAT TIME ---------------- */
 

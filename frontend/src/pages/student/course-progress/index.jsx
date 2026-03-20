@@ -36,7 +36,7 @@ function StudentViewCourseProgressPage() {
   const { id } = useParams();
 
   async function fetchCurrentCourseProgress() {
-    const response = await getCurrentCourseProgressService(auth?.user?._id, id);
+    const response = await getCurrentCourseProgressService(auth?.user?._id._id, id);
    
     
     if (response?.success) {
@@ -80,7 +80,7 @@ function StudentViewCourseProgressPage() {
   async function updateCourseProgress() {
     if (currentLecture) {
       const response = await markLectureAsViewedService(
-        auth?.user?._id,
+        auth?.user?._id._id,
         studentCurrentCourseProgress?.courseDetails?._id,
         currentLecture._id
       );
@@ -93,7 +93,7 @@ function StudentViewCourseProgressPage() {
 
   async function handleRewatchCourse() {
     const response = await resetCourseProgressService(
-      auth?.user?._id,
+      auth?.user?._id._id,
       studentCurrentCourseProgress?.courseDetails?._id
     );
 
@@ -109,9 +109,11 @@ function StudentViewCourseProgressPage() {
     fetchCurrentCourseProgress();
   }, [id]);
 
-  useEffect(() => {
-    if (currentLecture?.progressValue === 1) updateCourseProgress();
-  }, [currentLecture]);
+useEffect(() => {
+  if (currentLecture?.progressValue === 1) {
+    updateCourseProgress();
+  }
+}, [currentLecture]); 
 
   useEffect(() => {
     if (showConfetti) setTimeout(() => setShowConfetti(false), 15000);
