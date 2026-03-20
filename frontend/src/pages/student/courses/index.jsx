@@ -13,7 +13,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { filterOptions, sortOptions } from "@/config";
 import { AuthContext } from "@/context";
 import { StudentContext } from "@/context/student-context";
-import { fetchStudentCourseListService } from "@/services";
+import { checkCoursePurchaseInfoService, fetchStudentCourseListService } from "@/services";
 import { ArrowUpDownIcon } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -85,7 +85,18 @@ const StudentViewCoursesPage = () => {
   }
 
   async function handleCourseNavigate(getCurrentCourseId) {
-    navigate(`details/${getCurrentCourseId}`)
+   const response = await checkCoursePurchaseInfoService(
+      getCurrentCourseId,
+      auth?.user?._id._id
+    );
+
+    if (response?.success) {
+      if (response?.data) {
+        navigate(`/course-progress/${getCurrentCourseId}`);
+      } else {
+        navigate(`/courses/details/${getCurrentCourseId}`);
+      }
+    }
   }
 
   useEffect(() => {

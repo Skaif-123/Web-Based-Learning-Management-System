@@ -14,7 +14,9 @@ function StudentCoursesPage() {
   const navigate = useNavigate();
 
   async function fetchStudentBoughtCourses() {
-    const response = await fetchStudentBoughtCoursesService(auth?.user?._id);
+   
+    
+    const response = await fetchStudentBoughtCoursesService(auth?.user?._id._id);
     if (response?.success) {
       setStudentBoughtCoursesList(response?.data);
     }

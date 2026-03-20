@@ -8,6 +8,7 @@ import InstructorDashBoardPage from "./pages/instructor";
 import AddNewCourse from "./pages/instructor/add-new-course";
 import NotFoundPage from "./pages/not-found";
 import StudentViewCourseDetailsPage from "./pages/student/course-details";
+import StudentViewCourseProgressPage from "./pages/student/course-progress";
 import StudentViewCoursesPage from "./pages/student/courses";
 import StudentHomePage from "./pages/student/home";
 import PaypalPaymentReturnPage from "./pages/student/payment-return";
@@ -77,6 +78,10 @@ function App() {
           />
           <Route path="payment-return" element={<PaypalPaymentReturnPage />} />
           <Route path="student-courses" element={<StudentCoursesPage />} />
+            <Route
+          path="course-progress/:id"
+          element={<StudentViewCourseProgressPage />}
+        />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

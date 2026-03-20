@@ -7,6 +7,7 @@ import instructorCourseRoutes from "./routes/instructor-routes/course-routes.js"
 import mediaRoutes from "./routes/instructor-routes/mediaRoutes.js";
 import studentViewCoursesRoutes from "./routes/student-routes/course-routes.js";
 import studentViewOrderRoutes from "./routes/student-routes/order-routes.js";
+import  studentCoursesRoutes from "./routes/student-routes/student-courses-routes.js";
 
 
 
@@ -29,6 +30,7 @@ app.use("/media",mediaRoutes);
 app.use("/instructor/course",instructorCourseRoutes);
 app.use("/student/course", studentViewCoursesRoutes);
 app.use("/student/order", studentViewOrderRoutes);
+app.use("/student/courses-bought", studentCoursesRoutes);
 
 app.use((err, req, res, next) => {
   
