@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -13,9 +13,9 @@ import VideoPlayer from "@/components/video-player";
 import { AuthContext } from "@/context";
 import { StudentContext } from "@/context/student-context";
 import {
-    getCurrentCourseProgressService,
-    markLectureAsViewedService,
-    resetCourseProgressService,
+  getCurrentCourseProgressService,
+  markLectureAsViewedService,
+  resetCourseProgressService,
 } from "@/services";
 import { Check, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
@@ -37,6 +37,8 @@ function StudentViewCourseProgressPage() {
 
   async function fetchCurrentCourseProgress() {
     const response = await getCurrentCourseProgressService(auth?.user?._id, id);
+   
+    
     if (response?.success) {
       if (!response?.data?.isPurchased) {
         setLockCourse(true);

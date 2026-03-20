@@ -1,5 +1,5 @@
+import { Course } from "../../models/Course.js";
 import CourseProgress from "../../models/CourseProgress.js";
-import Course from "../../models/Course.js";
 import StudentCourses from "../../models/StudentCourses.js";
 
 //mark current lecture as viewed
@@ -180,7 +180,5 @@ const resetCurrentCourseProgress = async (req, res) => {
 };
 
 export {
-  markCurrentLectureAsViewed,
-  getCurrentCourseProgress,
-  resetCurrentCourseProgress,
+  getCurrentCourseProgress, markCurrentLectureAsViewed, resetCurrentCourseProgress
 };
