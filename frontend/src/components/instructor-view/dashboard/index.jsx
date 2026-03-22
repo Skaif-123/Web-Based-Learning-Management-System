@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -6,55 +5,107 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from "@/components/ui/table";
-import { Edit2 } from "lucide-react";
-import { MdDeleteForever } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { DollarSign, Users } from "lucide-react";
 
-const DashBoard = () => {
-  const navigate= useNavigate();
+const DashBoard = ({ listOfCourses }) => {
+
+ function calculateTotalStudentsAndProfit() {
+    const { totalStudents, totalProfit, studentList } = listOfCourses.reduce(
+      (acc, course) => {
+        const studentCount = course.students.length;
+        acc.totalStudents += studentCount;
+        acc.totalProfit += course.pricing * studentCount;
+
+        course.students.forEach((student) => {
+          acc.studentList.push({
+            courseTitle: course.title,
+            studentName: student.studentName,
+            studentEmail: student.studentEmail,
+          });
+        });
+
+        return acc;
+      },
+      {
+        totalStudents: 0,
+        totalProfit: 0,
+        studentList: [],
+      }
+    );
+
+    return {
+      totalProfit,
+      totalStudents,
+      studentList,
+    };
+  }
+
+  console.log(calculateTotalStudentsAndProfit());
+
+  const config = [
+    {
+      icon: Users,
+      label: "Total Students",
+      value: calculateTotalStudentsAndProfit().totalStudents,
+    },
+    {
+      icon: DollarSign,
+      label: "Total Revenue",
+      value: calculateTotalStudentsAndProfit().totalProfit,
+    },
+  ];
+
   return (
-    <>
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {config.map((item, index) => (
+          <Card key={index}>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                {item.label}
+              </CardTitle>
+              <item.icon className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{item.value}</div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
       <Card>
-        <CardHeader className="flex justify-between items-center overflow-x-auto">
-          <CardTitle className="text-3xl font-extrabold">ALL COURSES</CardTitle>
-          <button onClick={()=>navigate("/instructor/Create-New-Course")} className="bg-black p-3 hover:font-bold cursor-pointer text-white rounded-xl">
-            Create New Courses
-          </button>
+        <CardHeader>
+          <CardTitle>Students List</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
-            <Table>
+            <Table className="w-full">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[300px]">Course</TableHead>
-                  <TableHead>Students</TableHead>
-                  <TableHead>Revenue</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead>Course Name</TableHead>
+                  <TableHead>Student Name</TableHead>
+                  <TableHead>Student Email</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">Basic To Advanced Javascript</TableCell>
-                  <TableCell>190</TableCell>
-                  <TableCell>$7500</TableCell>
-                  <TableCell className="text-right flex justify-end gap-2">
-                    <Button className="bg-green-400 hover:bg-green-600">
-                      <Edit2></Edit2>
-                    </Button>
-                    <Button className="bg-red-400 hover:bg-red-600 ">
-                    <MdDeleteForever style={{ color: 'white', fontSize: '30px' }} />
-                    </Button>
-                      
-                  </TableCell>
-                </TableRow>
+                {calculateTotalStudentsAndProfit().studentList.map(
+                  (studentItem, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">
+                        {studentItem.courseTitle}
+                      </TableCell>
+                      <TableCell>{studentItem.studentName}</TableCell>
+                      <TableCell>{studentItem.studentEmail}</TableCell>
+                    </TableRow>
+                  )
+                )}
               </TableBody>
             </Table>
           </div>
         </CardContent>
       </Card>
-    </>
+    </div>
   );
 };
 

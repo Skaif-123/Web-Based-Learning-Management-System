@@ -1,4 +1,3 @@
-import InstructorCourses from "@/components/instructor-view/coursesPage";
 import CoursePage from "@/components/instructor-view/coursesPage";
 import DashBoard from "@/components/instructor-view/dashboard";
 import { Button } from "@/components/ui/button";
@@ -33,7 +32,7 @@ async function fetchALLCourses(){
       icon: BarChart,
       label: "DashBoard",
       value: "dashboard",
-      component: <DashBoard />,
+      component: <DashBoard listOfCourses={instructorCourseList} />,
     },
     {
       icon: Book,
