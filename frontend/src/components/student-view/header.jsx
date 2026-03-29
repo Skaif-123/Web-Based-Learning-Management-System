@@ -1,9 +1,9 @@
-import { GraduationCap, TvMinimalPlay } from "lucide-react";
+import { AuthContext } from "@/context";
+import { TvMinimalPlay } from "lucide-react";
+import { useContext } from "react";
+import { IoBookSharp } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
-import { useContext } from "react";
-import { AuthContext } from "@/context";
-import { IoBookSharp } from "react-icons/io5";
 
 
 function StudentViewCommonHeader() {
@@ -43,6 +43,20 @@ function StudentViewCommonHeader() {
             className="text-[14px] md:text-[16px] font-medium"
           >
             Explore Courses
+          </Button>
+        </div>
+       
+        <div className="flex items-center space-x-1">
+          <Button
+            variant="ghost"
+            onClick={() => {
+              location.pathname.includes("/tools")
+                ? null
+                : navigate("/tools");
+            }}
+            className="text-[14px] md:text-[16px] font-medium"
+          >
+            AI Tools
           </Button>
         </div>
       </div>
