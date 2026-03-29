@@ -15,6 +15,7 @@ import PaypalPaymentReturnPage from "./pages/student/payment-return";
 import StudentCoursesPage from "./pages/student/student-courses";
 import ToolPage from "./pages/tools_page";
 import WebAgentPage from "./pages/web-agent";
+import FaqBot from "./pages/faq-bot";
 
 function App() {
   const { auth } = useContext(AuthContext);
@@ -76,6 +77,7 @@ function App() {
           <Route path="courses" element={<StudentViewCoursesPage />} />
           <Route path="tools" element={<ToolPage />} />
           <Route path="web-agent" element={<WebAgentPage/>} />
+          <Route path="faq-bot" element={<FaqBot/>} />
           <Route
             path="courses/details/:id"
             element={<StudentViewCourseDetailsPage />}

@@ -1,5 +1,5 @@
 import { AuthContext } from "@/context";
-import { TvMinimalPlay } from "lucide-react";
+import { BotIcon, HelpCircle, TvMinimalPlay } from "lucide-react";
 import { useContext } from "react";
 import { IoBookSharp } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
@@ -59,9 +59,20 @@ function StudentViewCommonHeader() {
             AI Tools
           </Button>
         </div>
+        <div
+            onClick={() => navigate("/faq-bot")}
+            className="flex cursor-pointer items-center gap-3 p-2 rounded-2xl hover:text-yellow-200 hover:bg-red-600 hover:font-bold"
+          >
+            <span className=" md:text-xl text-[10px]">
+             FAQ
+            </span>
+            <BotIcon className="w-5 h-5 cursor-pointer" />
+          </div>
       </div>
       <div className="flex items-center space-x-4">
         <div className="flex gap-4 items-center">
+            
+
           <div
             onClick={() => navigate("/student-courses")}
             className="flex cursor-pointer items-center gap-3"
