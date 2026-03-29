@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { ArrowRight, Code2, GraduationCap, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const agents = [
 ];
 
 const AgentCards = () => {
-    const navigate=useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="grid gap-6 md:grid-cols-2 p-6">
       {agents.map((agent, index) => {
@@ -78,19 +78,32 @@ const AgentCards = () => {
               )}
             </CardContent>
 
-            
             <CardFooter className="mt-auto">
-              <Button
-               onClick={() => {
-              location.pathname.includes("/web-agent")
-                ? null
-                : navigate("/web-agent");
-            }}
-                className="w-full"
-              >
-                {agent.buttonText}
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
+              {agent.buttonText === "Start Review" ? (
+                <Button
+                  onClick={() => {
+                    location.pathname.includes("/code-review")
+                      ? null
+                      : navigate("/code-review");
+                  }}
+                  className="w-full"
+                >
+                  {agent.buttonText}
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    location.pathname.includes("/web-agent")
+                      ? null
+                      : navigate("/web-agent");
+                  }}
+                  className="w-full"
+                >
+                  {agent.buttonText}
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              )}
             </CardFooter>
           </Card>
         );

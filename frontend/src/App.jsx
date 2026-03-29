@@ -4,6 +4,8 @@ import RouteGuard from "./components/route-guard/RouteGuard";
 import StudentViewCommonLayout from "./components/student-view/common-layout";
 import { AuthContext } from "./context";
 import { AuthPage } from "./pages/auth";
+import CodeReview from "./pages/code-review";
+import FaqBot from "./pages/faq-bot";
 import InstructorDashBoardPage from "./pages/instructor";
 import AddNewCourse from "./pages/instructor/add-new-course";
 import NotFoundPage from "./pages/not-found";
@@ -15,7 +17,6 @@ import PaypalPaymentReturnPage from "./pages/student/payment-return";
 import StudentCoursesPage from "./pages/student/student-courses";
 import ToolPage from "./pages/tools_page";
 import WebAgentPage from "./pages/web-agent";
-import FaqBot from "./pages/faq-bot";
 
 function App() {
   const { auth } = useContext(AuthContext);
@@ -77,6 +78,7 @@ function App() {
           <Route path="courses" element={<StudentViewCoursesPage />} />
           <Route path="tools" element={<ToolPage />} />
           <Route path="web-agent" element={<WebAgentPage/>} />
+          <Route path="code-review" element={<CodeReview/>} />
           <Route path="faq-bot" element={<FaqBot/>} />
           <Route
             path="courses/details/:id"
