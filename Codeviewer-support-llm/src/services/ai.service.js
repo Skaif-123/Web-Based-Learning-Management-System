@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "E:/Proper Full Working Projects 2025/Project GenAI/.env" });
+require("dotenv").config({ path: "/Codeviewer-support-llm/.env" });
 console.log("KEY:", process.env.G_API_KEY);
 const { GoogleGenAI } = require("@google/genai");
 const ai = new GoogleGenAI({ apiKey: process.env.G_API_KEY });
