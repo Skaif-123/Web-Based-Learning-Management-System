@@ -7,7 +7,7 @@ loadEnv();
 const app: Express = express();
 app.use(
   cors({
-    origin: ["http://localhost:5000","http://localhost:5173"], // allowed origins
+    origin: ["http://localhost:3000","http://localhost:5173"], // allowed origins
     methods: ["GET", "POST", "PUT", "DELETE"], // allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // allowed headers
     credentials: false, // allow cookies/auth headers
