@@ -9,8 +9,8 @@ export default function FaqBot() {
   const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
 
-  const BACKEND_URL ="http://localhost:4000";
-    // import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  const BACKEND_URL =import.meta.env.VITE_BACKEND_FAQ_URL || "http://localhost:4000";
+    // import.meta.env.VITE_BACKEND_FAQ_URL || "http://localhost:5000";
 
   async function handleQuerySubmit(e) {
     e.preventDefault();

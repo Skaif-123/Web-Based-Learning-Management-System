@@ -3,7 +3,7 @@ import { CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_WEB_AGENT_API_URL;
 
 const WebAgentPage = () => {
   const [query, setQuery] = useState("");
